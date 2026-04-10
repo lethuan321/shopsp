@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>PhucKhang Sport Shop</title>
+  <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+
+  <div class="universe">
+  <div class="stars1"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+</div>
+
+  <header>
+    <h1>PhucKhang Sport Shop</h1>
+    <div>
+  <a href="cart.html" id="cartLink" style="color:#fff;">🛒 Giỏ hàng (0)</a> 
+</div>
+
+  </header>
+  <nav>
+    <a href="index.html">Trang Chủ</a>
+    <a href="product-list.html">Sản Phẩm</a>
+    <a href="#">Khuyến Mãi</a>
+    <a href="#">Dịch Vụ</a>
+    <a href="#">Liên Hệ</a>
+  </nav>
+  <div class="banner">
+  <img src="../img/banner.jpg" class="active">
+  <img src="../img/banner2.jpg">
+  <img src="../img/banner3.jpg">
+</div>
+
+<style>
+.banner {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+.banner img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+.banner img.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+</style>
+
+<script>
+let index = 0;
+const images = document.querySelectorAll('.banner img');
+setInterval(() => {
+  // ẩn ảnh hiện tại    
+  images[index].classList.remove('active');
+  // tăng index
+  index = (index + 1) % images.length;
+  // hiện ảnh kế tiếp
+  images[index].classList.add('active');
+}, 3000); // đổi ảnh mỗi 3 giây
+</script>
+  <div class="filters">
+    <div>
+  <label>Sắp xếp:</label>
+  <select id="sortSelect">
+    <option value="asc">Giá từ nhỏ đến lớn</option>
+    <option value="desc">Giá từ lớn đến nhỏ</option>
+  </select>
+    </div>
+</div>
+<section class="products" id="productList"></section>
+
+  <footer>© 2026 PhucKhang Sport Shop - Hotline: 086 5491 277</footer>
+
+<script>
+  function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({name, price});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    alert(name + " đã thêm vào giỏ hàng!");
+  }
+
+  function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    document.getElementById("cartLink").textContent = "🛒 Giỏ hàng (" + cart.length + ")";
+  }
+
+  async function renderProducts() {
+    const list = document.getElementById("productList");
+    list.innerHTML = "";
+
+    const res = await fetch("http://localhost:3000/products");
+    let products = await res.json();
+
+    const sortValue = document.getElementById("sortSelect").value;
+    if (sortValue === "asc") {
+      products.sort((a, b) => a.price - b.price);
+    } else if (sortValue === "desc") {
+      products.sort((a, b) => b.price - a.price);
+    }
+
+    products.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>${p.price.toLocaleString()}đ</p>
+        <button onclick="addToCart('${p.name}', ${p.price})">Mua ngay</button>
+      `;
+      list.appendChild(card);
+    });
+  }
+
+  document.getElementById("sortSelect").addEventListener("change", renderProducts);
+  document.addEventListener("DOMContentLoaded", () => {
+    updateCartCount();
+    renderProducts();
+  });
+</script>
+
+
+</body>
+</html>
