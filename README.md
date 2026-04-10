@@ -1,2 +1,0 @@
-# shopsp
-shopsport
