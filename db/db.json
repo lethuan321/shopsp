@@ -1,0 +1,24 @@
+{
+  "products": [
+    { "id": 4, "name": "Áo bóng đá CLB", "price": 350000, "img": "ao_bongda.png", "inStock": true, "category": "ao" },
+    { "id": 5, "name": "Áo tập gym", "price": 250000, "img": "ao_gym.png", "inStock": true, "category": "ao" },
+    { "id": 6, "name": "Quần short thể thao", "price": 200000, "img": "quan_short.png", "inStock": true, "category": "quan" },
+    { "id": 7, "name": "Quần dài chạy bộ", "price": 450000, "img": "quan_chay.png", "inStock": true, "category": "quan" },
+    { "id": 8, "name": "Giày chạy Nike Air", "price": 1800000, "img": "giay_nikeair.png", "inStock": true, "category": "giay" },
+    { "id": 9, "name": "Giày bóng rổ Adidas", "price": 2200000, "img": "giay_bongro.png", "inStock": true, "category": "giay" },
+    { "id": 10, "name": "Giày cầu lông Yonex", "price": 1500000, "img": "giay_caulong.png", "inStock": true, "category": "giay" },
+    { "id": 11, "name": "Vợt cầu lông Yonex", "price": 1200000, "img": "vot_yonex.png", "inStock": true, "category": "vot" },
+    { "id": 12, "name": "Vợt tennis Wilson", "price": 2500000, "img": "vot_wilson.png", "inStock": true, "category": "vot" },
+    { "id": 13, "name": "Vợt bóng bàn Butterfly", "price": 800000, "img": "vot_bongban.png", "inStock": true, "category": "vot" },
+    { "id": 14, "name": "Lưới cầu lông tiêu chuẩn", "price": 600000, "img": "luoi_caulong.png", "inStock": true, "category": "luoi" },
+    { "id": 15, "name": "Lưới tennis ngoài trời", "price": 1500000, "img": "luoi_tennis.png", "inStock": true, "category": "luoi" },
+    { "id": 16, "name": "Quấn cán vợt Yonex", "price": 100000, "img": "quan_can.png", "inStock": true, "category": "phukien" },
+    { "id": 17, "name": "Quấn cán Wilson", "price": 120000, "img": "quan_can_wilson.png", "inStock": true, "category": "phukien" },
+    { "id": 18, "name": "Võ phục Taekwondo", "price": 700000, "img": "vo_taekwondo.png", "inStock": true, "category": "vo_phuc" },
+    { "id": 19, "name": "Võ phục Karate", "price": 750000, "img": "vo_karate.png", "inStock": true, "category": "vo_phuc" },
+    { "id": 20, "name": "Võ phục Judo", "price": 800000, "img": "vo_judo.png", "inStock": true, "category": "vo_phuc" },
+    { "id": 21, "name": "Áo khoác thể thao", "price": 500000, "img": "ao_khoac.png", "inStock": true, "category": "ao" },
+    { "id": 22, "name": "Quần legging yoga", "price": 300000, "img": "quan_yoga.png", "inStock": true, "category": "quan" },
+    { "id": 23, "name": "Giày tập gym Reebok", "price": 1300000, "img": "giay_reebok.png", "inStock": true, "category": "giay" }
+  ]
+}

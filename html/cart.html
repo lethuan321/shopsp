@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Giỏ hàng </title>
+  <style>
+    body {margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f9f9f9;color:#333;}
+    header {background:#000;color:#fff;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;}
+    header h1 {margin:0;font-size:22px;}
+    .cart-container {max-width:1000px;margin:30px auto;padding:20px;background:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+    .cart-items {margin-bottom:20px;}
+    .cart-item {display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #ddd;}
+    .cart-item:last-child {border-bottom:none;}
+    .cart-item span {font-size:16px;}
+    .cart-item button {background:#e74c3c;color:#fff;border:none;padding:8px 12px;border-radius:5px;cursor:pointer;}
+    .cart-item button:hover {background:#c0392b;}
+    .cart-summary {text-align:right;font-size:18px;font-weight:bold;margin-top:20px;}
+    .cart-actions {display:flex;justify-content:space-between;margin-top:30px;}
+    .cart-actions a, .cart-actions button {
+      background:#3498db;color:#fff;padding:12px 20px;border:none;border-radius:5px;
+      text-decoration:none;font-weight:bold;cursor:pointer;
+    }
+    .cart-actions a:hover, .cart-actions button:hover {background:#2980b9;}
+    footer {background:#000;color:#fff;text-align:center;padding:20px;margin-top:40px;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Giỏ hàng của bạn</h1>
+    <div><a href="index.html" style="color:#fff;">⬅ Quay lại mua hàng</a></div>
+  </header>
+
+  <div class="cart-container">
+    <div class="cart-items" id="cartItems"></div>
+  <div class="cart-summary" id="cartSummary"></div>
+    <div class="cart-actions">
+      <button onclick="checkout()">Đặt Hàng</button>
+    </div>
+  </div>
+
+  <footer>© 2026 PhucKhang Sport Shop - Hotline: 0123 456 789</footer>
+
+  
+<script>
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartDiv = document.getElementById('cartItems');
+  const summaryDiv = document.getElementById('cartSummary');
+
+  if(cart.length === 0){
+    cartDiv.innerHTML = "<p>Giỏ hàng trống</p>";
+    summaryDiv.innerHTML = "";
+  } else {
+    let total = 0;
+    cart.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.className = "cart-item";
+      div.innerHTML = `
+        <span>${item.name} - ${item.price.toLocaleString()}đ</span>
+        <button onclick="removeItem(${index})">Xóa</button>
+      `;
+      cartDiv.appendChild(div);
+      total += item.price;
+    });
+    summaryDiv.innerHTML = "Tổng cộng: " + total.toLocaleString() + "đ";
+  }
+
+  function removeItem(index){
+    cart.splice(index,1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    location.reload();
+  }
+
+function checkout(){
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if(cart.length === 0){
+    alert("Giỏ hàng trống!");
+    return;
+  }
+
+  const userId = localStorage.getItem("userId");
+  if(!userId){
+    alert("Bạn cần đăng nhập trước khi thanh toán!");
+    return;
+  }
+
+  cart.forEach(async item => {
+    await fetch("http://localhost:3000/order", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        userId: userId,
+        productName: item.name,
+        price: item.price,
+        quantity: 1
+      })
+    });
+  });
+
+  alert("Đơn hàng đã ghi nhận!");
+  localStorage.setItem('cart', JSON.stringify([]));
+  document.getElementById('cartItems').innerHTML = "<p>Giỏ hàng trống</p>";
+}
+
+
+</script>
+
+
+</body>
+</html>

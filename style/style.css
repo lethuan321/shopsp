@@ -1,0 +1,177 @@
+/* Nền vũ trụ với thị sai */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #fff;
+  background: #000;
+  overflow-x: hidden;
+}
+
+.universe {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.stars {
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%; height: 200%;
+  background-repeat: repeat;
+  background-size: contain;
+  opacity: 0.4;
+}
+
+.stars1 { background-image: url('stars-small.png'); animation: moveStars1 60s linear infinite; }
+.stars2 { background-image: url('stars-medium.png'); animation: moveStars2 120s linear infinite; }
+.stars3 { background-image: url('stars-big.png'); animation: moveStars3 180s linear infinite; }
+
+@keyframes moveStars1 { from { transform: translateX(0); } to { transform: translateX(-200px); } }
+@keyframes moveStars2 { from { transform: translateX(0); } to { transform: translateX(-400px); } }
+@keyframes moveStars3 { from { transform: translateX(0); } to { transform: translateX(-600px); } }
+
+/* Header */
+header {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header h1 { font-size: 28px; color: #00c6ff; }
+header a { color: #fff; text-decoration: none; margin-left: 15px; }
+header a:hover { color: #ffdd00; }
+
+/* Navigation */
+nav {
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+nav a {
+  color: #fff;
+  margin: 0 20px;
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+}
+nav a:hover { color: #00c6ff; }
+
+/* Banner */
+.banner {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+.banner img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+.banner img.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Filters */
+.filters {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(6px);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.filters select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255,255,255,0.9); /* nền sáng rõ */
+  color: #000;                       /* chữ đen dễ đọc */
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.filters select:hover {
+  background: rgba(255,255,255,1);   /* hover sáng hơn chút */
+  border: 1px solid #00c6ff;         /* viền xanh khi hover */
+}
+
+
+/* Products */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.products {
+  max-width: 90%;
+  max-height: 500px;       /* giới hạn chiều cao khung */
+  overflow-y: auto;        /* bật thanh cuộn dọc */
+  border: 1px solid #ccc;  /* viền xám nhạt */
+  padding: 10px;
+  background: #ffffff;     /* nền xám nhạt thay vì trắng tinh */
+  border-radius: 8px;      /* bo góc mềm mại */
+}
+
+.products {
+  background: #6f5050;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+.product-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.7);
+}
+.product-card h3 { color: #00c6ff; }
+.product-card p { color: #ff6b6b; }
+.product-card button {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 30px;
+  padding: 12px 25px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card button:hover {
+  transform: translateY(-5px);
+  box-shadow: inset 0 0 15px rgba(255,255,255)
+}
+
+/* Footer */
+footer {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  text-align: center;   /* căn giữa nội dung */
+  padding: 20px;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  font-size: 14px;
+}

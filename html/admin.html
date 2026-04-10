@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trang quản trị - PhucKhang Sport Shop</title>
+  <link rel="stylesheet" href="../style/style1.css">
+</head>
+<body>
+  <header>
+    <h1>Trang quản trị - PhucKhang Sport Shop</h1>
+  </header>
+
+  <div class="container">
+    <h2>Thêm / chỉnh sửa sản phẩm</h2>
+    <form id="productForm">
+  <input type="hidden" id="editingId">
+
+  <label>Tên sản phẩm:</label>
+  <input type="text" id="name" required>
+
+  <label>Giá:</label>
+  <input type="number" id="price" required>
+
+  <label>Ảnh (URL):</label>
+  <input type="text" id="img" required>
+
+  <!-- Đây là dropdown tình trạng -->
+  <label>Tình trạng:</label>
+  <select id="inStock" required>
+    <option value="true">Còn hàng</option>
+    <option value="false">Hết hàng</option>
+  </select>
+
+  <button type="submit">Lưu sản phẩm</button>
+</form>
+
+
+    <h2>Danh sách sản phẩm</h2>
+    <table id="productTable">
+      <thead>
+        <tr>
+          <th>Ảnh</th>
+          <th>Tên</th>
+          <th>Giá</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+<script>
+  const form = document.getElementById("productForm");
+  const tableBody = document.querySelector("#productTable tbody");
+  let editingId = null;
+
+  async function loadProducts(){
+    const res = await fetch("http://localhost:3000/products");
+    const products = await res.json();
+    tableBody.innerHTML = "";
+    products.forEach((p) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+  <td><img src="${p.img}" alt="${p.name}" style="width:80px"></td>
+  <td>${p.name}</td>
+  <td>${p.price.toLocaleString()}đ</td>
+  <td>${p.inStock ? "Còn hàng" : "Hết hàng"}</td>
+  <td>
+    <button class="action-btn edit" onclick="editProduct(${p.id}, '${p.name}', ${p.price}, '${p.img}', ${p.inStock})">Sửa</button>
+    <button class="action-btn delete" onclick="deleteProduct(${p.id})">Xóa</button>
+  </td>
+`;
+
+      tableBody.appendChild(row);
+    });
+  }
+
+ form.addEventListener("submit", async function(e){
+  e.preventDefault();
+  const inStock = document.getElementById("inStock").value === "true";
+  const name = document.getElementById("name").value;
+  const price = parseInt(document.getElementById("price").value);
+  const img = document.getElementById("img").value;
+
+  if(editingId){
+    await fetch(`http://localhost:3000/products/${editingId}`, {
+      method: "PUT",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({name, price, img, inStock})
+    });
+    editingId = null;
+  } else {
+    await fetch("http://localhost:3000/products", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({name, price, img, inStock})
+    });
+  }
+
+  form.reset();
+  loadProducts();
+});
+
+  function editProduct(id, name, price, img, inStock){
+  document.getElementById("name").value = name;
+  document.getElementById("price").value = price;
+  document.getElementById("img").value = img;
+  document.getElementById("inStock").value = inStock ? "true" : "false";
+  editingId = id;
+}
+
+  async function deleteProduct(id){
+  await fetch(`http://localhost:3000/products/${id}`, { method: "DELETE" });
+  loadProducts();
+}
+
+
+  loadProducts();
+</script>
+</body>
+</html>
