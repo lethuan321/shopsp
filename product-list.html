@@ -40,7 +40,7 @@
 
 <script>
   async function loadProducts() {
-    const res = await fetch("http://localhost:3000/products");
+    const res = await fetch("https://your-app.onrender.com/products");
     let products = await res.json();
 
     // lấy giá trị filter
