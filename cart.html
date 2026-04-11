@@ -84,7 +84,7 @@ function checkout(){
   }
 
   cart.forEach(async item => {
-    await fetch("https://phuckhang-sport.up.railway.app/order", {
+    await fetch("https://shopsp-production.up.railway.app/order", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
