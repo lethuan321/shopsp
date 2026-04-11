@@ -55,7 +55,7 @@
   let editingId = null;
 
   async function loadProducts(){
-    const res = await fetch("https://phuckhang-sport.up.railway.app/products");
+    const res = await fetch("https://shopsp-production.up.railway.app/products");
     const products = await res.json();
     tableBody.innerHTML = "";
     products.forEach((p) => {
@@ -83,14 +83,14 @@
   const img = document.getElementById("img").value;
 
   if(editingId){
-    await fetch(`https://phuckhang-sport.up.railway.app/products/${editingId}`, {
+    await fetch(`https://shopsp-production.up.railway.app/products/${editingId}`, {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({name, price, img, inStock})
     });
     editingId = null;
   } else {
-    await fetch("https://phuckhang-sport.up.railway.app/products", {
+    await fetch("https://shopsp-production.up.railway.app/products", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({name, price, img, inStock})
@@ -110,7 +110,7 @@
 }
 
   async function deleteProduct(id){
-  await fetch(`https://phuckhang-sport.up.railway.app/products/${id}`, { method: "DELETE" });
+  await fetch(`https://shopsp-production.up.railway.app/products/${id}`, { method: "DELETE" });
   loadProducts();
 }
 
