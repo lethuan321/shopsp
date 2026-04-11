@@ -99,7 +99,7 @@ setInterval(() => {
     const list = document.getElementById("productList");
     list.innerHTML = "";
 
-    const res = await fetch("https://phuckhang-sport.up.railway.app/products");
+    const res = await fetch("shopsp-production.up.railway.app/products");
     let products = await res.json();
 
     const sortValue = document.getElementById("sortSelect").value;
