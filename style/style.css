@@ -110,12 +110,10 @@ nav a:hover { color: #00c6ff; }
 /* Products */
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }
+
 
 .products {
   max-width: 90%;
