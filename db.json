@@ -22,3 +22,13 @@
     { "id": 23, "name": "Giày tập gym Reebok", "price": 1300000, "img": "giay_reebok.png", "inStock": true, "category": "giay" }
   ]
 }
+{
+  "scripts": {
+    "start": "json-server --watch db.json --port 3000"
+  },
+  "dependencies": {
+    "json-server": "^0.17.0"
+  }
+}
+
+
